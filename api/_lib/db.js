@@ -49,6 +49,16 @@ function sendJson(res, status, body) {
 }
 
 function readBody(req) {
+  // A runtime Node.js da Vercel já faz o parse do corpo (JSON/urlencoded)
+  // e disponibiliza em req.body — não dá pra ler o stream de novo.
+  if (req.body !== undefined && req.body !== null) {
+    if (typeof req.body === 'string') {
+      try { return Promise.resolve(req.body ? JSON.parse(req.body) : {}); }
+      catch (e) { return Promise.resolve({}); }
+    }
+    return Promise.resolve(req.body);
+  }
+  // Fallback (ambientes que não fazem o parse automático)
   return new Promise((resolve, reject) => {
     let raw = '';
     req.on('data', (chunk) => { raw += chunk; });
