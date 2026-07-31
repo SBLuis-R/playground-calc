@@ -991,7 +991,8 @@ document.getElementById('btnRequestAccess').addEventListener('click', async ()=>
       pollTimer = setInterval(()=> pollStatus(data.token), 3000);
     }
   }catch(e){
-    alert('Não foi possível solicitar acesso. Tente novamente.');
+    console.error('request-access falhou:', e);
+    alert('Não foi possível solicitar acesso: ' + (e.data && e.data.details ? e.data.details : e.message));
   }
 });
 
