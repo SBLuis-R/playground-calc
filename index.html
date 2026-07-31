@@ -222,6 +222,7 @@
     <input type="text" id="inputName" placeholder="Seu nome completo">
   </div>
   <button type="button" class="nav-btn primary" id="btnRequestAccess" style="width:100%;">Solicitar acesso</button>
+  <button type="button" class="reset-link" id="btnGoManagerFromName" style="margin-top:14px;color:var(--azul-claro-forte);">Sou gestor</button>
 </div>
 
 <!-- Tela: aguardando aprovação -->
@@ -229,6 +230,7 @@
   <div class="spinner"></div>
   <h2>Aguardando aprovação</h2>
   <p>Seu acesso foi solicitado. Assim que o gestor aprovar, a calculadora libera automaticamente.</p>
+  <button type="button" class="reset-link" id="btnGoManagerFromPending" style="color:var(--azul-claro-forte);">Sou gestor</button>
 </div>
 
 <!-- Tela: acesso negado -->
@@ -1060,6 +1062,17 @@ function applyPreferencesToUI(){
 
 // ---------- Modal de configurações ----------
 const settingsOverlay = document.getElementById('settingsOverlay');
+function openManagerAreaDirectly(){
+  settingsOverlay.classList.remove('hidden');
+  document.querySelectorAll('.settings-tab').forEach(t=> t.classList.remove('active'));
+  document.querySelector('.settings-tab[data-tab="manager"]').classList.add('active');
+  ['tabPrefs','tabPricing','tabManager'].forEach(id=> document.getElementById(id).classList.add('hidden'));
+  document.getElementById('tabManager').classList.remove('hidden');
+  renderManagerTab();
+}
+document.getElementById('btnGoManagerFromName').addEventListener('click', openManagerAreaDirectly);
+document.getElementById('btnGoManagerFromPending').addEventListener('click', openManagerAreaDirectly);
+
 document.getElementById('btnOpenSettings').addEventListener('click', ()=>{
   settingsOverlay.classList.remove('hidden');
   renderPrefsForm();
