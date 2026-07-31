@@ -4,8 +4,11 @@ const DEFAULT_PREFERENCES = {
   periodoPadrao: 1, // 1=mensal, 3=trimestral, 12=anual
   preMarcados: {},  // { edi:true, averb:false, ..., ciot:false, vpo:false }
   tituloProposta: 'Plano Mensal',
-  textoSuporte: 'Suporte especializado',
   observacaoFinal: 'O número de emissões é o total entre CTe e MDFe',
+  check: '✓',
+  copyLines: null,  // null = o front monta a lista padrão a partir dos recursos
+  modoLivre: false,
+  textoLivre: '',
 };
 
 module.exports = async (req, res) => {
